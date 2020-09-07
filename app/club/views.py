@@ -1,3 +1,8 @@
-from django.shortcuts import render
+# Python Core import
+import os
+import datetime
 
-# Create your views here.
+# Django Core Import
+
+# Local imports
+from .models import *

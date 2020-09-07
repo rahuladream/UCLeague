@@ -13,6 +13,15 @@ from .constants import *
 Model to store the data of teams with year wise
 """
 
+class TeamManager(models.Manager):
+
+    def sequalifiers(self):
+        return self.filter(club_type="SEQ")
+    
+    def nqualifiers(self):
+        return self.filter(club_type="NQ")
+
+
 class Team(models.Model):
 
     club_name       = models.CharField(_('Club Name'), max_length=100)
@@ -20,6 +29,7 @@ class Team(models.Model):
     club_year       = models.IntegerField(_('Year'), choices=YEAR_CHOICES, default=datetime.datetime.now().year)
     club_type       = models.CharField(_('Club Type'), max_length=20, choices=TEAM_TYPES)
 
+    objects         = TeamManager()
 
     def __str__(self):
         return self.club_name
