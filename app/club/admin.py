@@ -1,3 +1,9 @@
+# Python Core Import
+
+# Django Core Import
 from django.contrib import admin
 
-# Register your models here.
+# Local Import
+from .models import *
+
+admin.site.register(Team)
