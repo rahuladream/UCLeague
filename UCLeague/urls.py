@@ -13,9 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+# Django core Import
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url, include
+
+# Local Import
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^api/', include('app.club.urls', namespace='club_fetch'))
 ]
