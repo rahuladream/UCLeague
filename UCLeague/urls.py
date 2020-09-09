@@ -40,7 +40,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^api/', include('app.club.urls', namespace='club_fetch')),
+    url(r'^api/v1/', include('app.club.urls', namespace='club_fetch')),
 
     url(r'^docs(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='docs-json'),
     url(r'^$', schema_view.with_ui('swagger', cache_timeout=0), name='docs-ui'),
