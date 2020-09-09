@@ -13,8 +13,7 @@ from .views import (
 app_name = 'club'
 
 urlpatterns = [
-    url(r'list-group-team/$', ListGroupAPI.as_view(), name='list-group-api'),
-    url(r'team-api/$', TeamAPI.as_view(), name='team-api')
-
+    url(r'team-api/$', TeamAPI.as_view(), name='team-api'),
+    url(r'list-group-team/$', ListGroupAPI.as_view(), name='list-group-api')
 
 ]

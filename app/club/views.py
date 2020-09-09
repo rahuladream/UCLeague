@@ -19,8 +19,34 @@ from .serializers import *
 
 __author__ = 'Rahul'
 
+"""
+TODO:
+
+1. Also check the year
+2. 
+"""
+
 class TeamAPI(APIView):
     serializer_class = TeamSerializer
+
+    def get(self, request, format=None):
+        """
+        List out all the registered team of year
+        """
+        try:
+            year = datetime.datetime.now().year if request.GET.get('year') is None else request.GET.get('year')
+            obj = Team.objects.filter(club_year=year)
+            obj_serializer = TeamSerializer(obj, many=True)
+            team_obj = obj_serializer.data
+            
+            return Response({
+                'status': True,
+                'data': team_obj
+            }, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'status': False, 'message': str(e)},
+                            status=status.HTTP_400_BAD_REQUEST)
+
 
     def post(self, request, format=None):
         """
@@ -52,7 +78,60 @@ class TeamAPI(APIView):
                 'message': str(e)
             }, status=status.HTTP_400_BAD_REQUEST)
 
-    
+    def put(self, request, format=None):
+        """
+        Update already registered team
+        """
+        try:
+            data = request.data
+            club_id   = request.data.get('club_id')
+            club_state = request.data.get('club_state')
+            club_name = request.data.get('club_name')
+            club_year = request.data.get('club_year')
+            club_type = request.data.get('club_type')
+
+            is_update = Team.objects.filter(id=club_id).update(
+                club_name=club_name,
+                club_state=club_state,
+                club_year = club_year,
+                club_type=club_type
+            )
+            
+            if is_update:
+                return Response({
+                    'status': True,
+                    'message': 'Team data has been updated.'
+                }, status=status.HTTP_200_OK)
+            else:
+                return Response({
+                    'status': False,
+                    'message': 'We are unable to update the request.'
+                }, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            return Response({
+                'status': False,
+                'message': str(e)
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, format=None):
+        """
+        Deleted the team
+        """
+        try:
+            data = request.data
+            obj  = Team.objects.get(id=request.data.get('club_id'))
+            obj.delete()
+
+            return Response({
+                'status': True,
+                'message': 'Team has been deleted successfully.'
+            }, status=status.HTTP_200_OK)
+        except Team.DoesNotExist:
+            return Response({
+                'status': False,
+                'message': 'Requested team does not exist.'
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -65,11 +144,18 @@ class ListGroupAPI(GenericAPIView):
         """
 
         try:
-
-            super_eight_team = [list(team) for team in Team.objects.filter(club_type='SEQ').values_list('club_name','club_state')]
-            other_team       = [list(team) for team in Team.objects.filter(club_type='NQ').values_list('club_name','club_state')]
+            year             = datetime.datetime.now().year if request.GET.get('year') is None else request.GET.get('year')
+            super_eight_team = [list(team) for team in Team.objects.filter(club_type='SEQ', club_year=year).values_list('club_name','club_state')]
+            other_team       = [list(team) for team in Team.objects.filter(club_type='NQ', club_year=year).values_list('club_name','club_state')]
             total_team_size  = len(super_eight_team) + len(other_team)
             output_group     = []
+            
+            if len(super_eight_team) or len(other_team) == 0:
+                return Response({
+                    'status': True,
+                    'message': 'No data found'
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
             if total_team_size % TEAM_SIZE != 0:
                 return Response({
                 'status': True,
@@ -125,6 +211,7 @@ class ListGroupAPI(GenericAPIView):
             
             return Response({
                 'status': True,
+                'message': 'Group formation of year {}'.format(year),
                 'data': output_group,
             }, status=status.HTTP_200_OK)
 
