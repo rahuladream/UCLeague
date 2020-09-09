@@ -19,12 +19,6 @@ from .serializers import *
 
 __author__ = 'Rahul'
 
-"""
-TODO:
-
-1. Also check the year
-2. 
-"""
 
 class TeamAPI(APIView):
     serializer_class = TeamSerializer
@@ -137,6 +131,8 @@ class TeamAPI(APIView):
 
 class ListGroupAPI(GenericAPIView):
 
+    serializer_class = ListTeamSerializer
+
     def get(self, request):
 
         """
@@ -149,11 +145,11 @@ class ListGroupAPI(GenericAPIView):
             other_team       = [list(team) for team in Team.objects.filter(club_type='NQ', club_year=year).values_list('club_name','club_state')]
             total_team_size  = len(super_eight_team) + len(other_team)
             output_group     = []
-            
-            if len(super_eight_team) or len(other_team) == 0:
+            # import pdb; pdb.set_trace()
+            if total_team_size == 0:
                 return Response({
                     'status': True,
-                    'message': 'No data found'
+                    'message': 'No data found year {}'.format(year)
                 }, status=status.HTTP_400_BAD_REQUEST)
             
             if total_team_size % TEAM_SIZE != 0:
@@ -220,5 +216,19 @@ class ListGroupAPI(GenericAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
     
 
+
+    def post(self, request, format=None):
+
+        """
+        Saving the group
+        """
+
+        try:
+            
+            pass
+        
+        except Exception as e:
+            return Response({'status': False, 'message': str(e)},
+                            status=status.HTTP_400_BAD_REQUEST)
 
 
