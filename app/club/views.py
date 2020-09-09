@@ -207,6 +207,7 @@ class ListGroupAPI(GenericAPIView):
             
             return Response({
                 'status': True,
+                'year': year,
                 'message': 'Group formation of year {}'.format(year),
                 'data': output_group,
             }, status=status.HTTP_200_OK)
@@ -214,8 +215,10 @@ class ListGroupAPI(GenericAPIView):
         except Exception as e:
             return Response({'status': False, 'message': str(e)},
                             status=status.HTTP_400_BAD_REQUEST)
+
     
 
+class GroupSaveAPI(APIView):
 
     def post(self, request, format=None):
 
@@ -224,11 +227,12 @@ class ListGroupAPI(GenericAPIView):
         """
 
         try:
-            
+            import pdb; pdb.set_trace()
             pass
         
         except Exception as e:
             return Response({'status': False, 'message': str(e)},
                             status=status.HTTP_400_BAD_REQUEST)
+
 
 
