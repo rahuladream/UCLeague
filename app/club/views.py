@@ -7,82 +7,68 @@ from django.http import HttpResponse
 
 # Local imports
 from .models import *
+import collections
 
-
-# if membersInGroup==4:
-#     print("Group {} consists of:".format(group))
-#     membersInGroup=0
-#     group+=1
-# person=random.choice(participants)
-
-# print(person.club_name + " - " + person.club_type + " - " + person.club_state)
-# membersInGroup+=1
-# participants.remove(person)
 
 TEAM_SIZE             = 4
-ASCII_START_RANGE     = 64
+ASCII_START_RANGE     = 65
 ASCII_END_RANGE       = 91
 
 def random_group(self):
 
-    teams             = list(Team.objects.all())
-    state             = list(Team.objects.values('club_state').distinct())
-    new_team          = list(Team.objects.filter(club_type='NQ'))
-    super_eight       = list(Team.objects.filter(club_type='SEQ'))
-    total_team_size   = len(new_team) + len(super_eight)
-    membersInGroup    = 4    
+    super_eight_team = [list(team) for team in Team.objects.filter(club_type='SEQ').values_list('club_name','club_state')]
+    other_team       = [list(team) for team in Team.objects.filter(club_type='NQ').values_list('club_name','club_state')]
+    total_team_size  = len(super_eight_team) + len(other_team)
 
     if total_team_size % TEAM_SIZE != 0:
         return HttpResponse("Team cannot be formed: Must be Even Number")
-    # import pdb; pdb.set_trace()
-    team_formed = int(total_team_size / TEAM_SIZE)
 
-    if team_formed != len(super_eight):
+    group_count = int(total_team_size / TEAM_SIZE)
+
+    if group_count != len(super_eight_team):
         return HttpResponse('Rules Voileted: Super Eight Qualifiers')
 
+    
+    def create_team(groups, other_team):
+        """
+        Creating team of 4 people
+        """
+        used_team = []
+        for i in groups:
+            for team in other_team:
+                if team not in used_team:
+                    if len(i[list(i.keys())[0]]['club_state']) == 4:
+                        break
+                    if team[1] not in i[list(i.keys())[0]]['club_state']:
+                        used_team.append(team)
+                        i[list(i.keys())[0]]['club_name'].append(team[0])
+                        i[list(i.keys())[0]]['club_state'].append(team[1])
+        return groups
 
-    ALL_TEAMS = {}
-    for i in range(1, team_formed + 1):
-        
-        all_state = set()
-        single_team = [] 
-        choosen_team = random.choice(new_team)
-        choosen_super = random.choice(super_eight)
-        for j in range(TEAM_SIZE):
-            random.shuffle(new_team)
-            random.shuffle(super_eight)
-            if j == 0:
-                all_state.add(choosen_super.club_state)
-                single_team.append(choosen_super.club_name)
-                super_eight.remove(choosen_super)
-            else:
-                if choosen_team.club_state not in all_state:
-                    single_team.append(choosen_team.club_name)
-                    all_state.add(choosen_team.club_state)
-                    new_team.remove(choosen_team)
-                else:
-                    for t in new_team:
-                        if t.club_state not in all_state:
-                            all_state.add(t.club_state)
-                            single_team.append(t.club_name)
-                            new_team.remove(t)
-                            break;
-        print(single_team)
-        ALL_TEAMS['Group {}'.format(chr(ASCII_START_RANGE + i))] = single_team
-        # ALL_TEAMS.add({ 'Group {}'.format(chr(ASCII_START_RANGE + i)) : list(single_team) })
-        
-    #     # if _ == 8 and len(single_team) > 4:
-    #     #     import pdb; pdb.set_trace()
-        
-    #     # # if len(single_team) == 3:
-    #     # #     import pdb; pdb.set_trace()
-    #     # print(len(new_team)) 
-        # print(new_team)
-        # print(single_team)
-    # for key in ALL_TEAMS.items():
-    #     print(key)
+
+    while True:
+        groups = []
+        random.shuffle(super_eight_team)
+        random.shuffle(other_team)
+
+        for i in range(group_count):
+            groups.append(
+                {"Group " + chr(ASCII_START_RANGE + i): {
+                        'club_name': [super_eight_team[i][0]],
+                        'club_state': [other_team[i][1]]
+                }}
+            )
+        groups = create_team(groups, other_team)
+        border_case = group_count - 1
+        if len(groups[i]["Group " + chr(ASCII_START_RANGE + i) ]['club_name']) == 4:
+            break
+    
+    
+    print(groups)
+
+
     import json
-    return HttpResponse(json.dumps(ALL_TEAMS))
+    return HttpResponse(json.dumps(groups))
 
 
 
