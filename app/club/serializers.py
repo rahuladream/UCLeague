@@ -13,3 +13,12 @@ class ListTeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = '__all__'
+
+
+class TeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team
+        fields = '__all__'
+
+    def create(self, validated_data):
+        return Team.objects.create(**validated_data)

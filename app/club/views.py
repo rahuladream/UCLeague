@@ -13,10 +13,48 @@ from rest_framework.views import APIView
 # Local imports
 from .models import *
 from .constants import *
+from .serializers import *
 
 # API Logic Here
 
 __author__ = 'Rahul'
+
+class TeamAPI(APIView):
+    serializer_class = TeamSerializer
+
+    def post(self, request, format=None):
+        """
+        Create a team player
+        """
+        try:
+            data = request.data
+            serializer = TeamSerializer(data=data)
+
+            if serializer.is_valid():
+                obj = serializer.create(serializer.data)
+
+                return Response({
+                    'status': True,
+                    'message': 'Team added'
+                }, status=status.HTTP_201_CREATED)
+            else:
+                message = ''
+                for error in serializer.errors.values():
+                    message += " "
+                    message += error[0]
+                return Response({
+                    'status': False,
+                    'message': message
+                }, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({
+                'status': False,
+                'message': str(e)
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+    
+
+
 
 class ListGroupAPI(GenericAPIView):
 
@@ -33,12 +71,18 @@ class ListGroupAPI(GenericAPIView):
             total_team_size  = len(super_eight_team) + len(other_team)
             output_group     = []
             if total_team_size % TEAM_SIZE != 0:
-                return HttpResponse("Team cannot be formed: Must be Even Number")
+                return Response({
+                'status': True,
+                'message': 'Rules Voileted: Team number mis-matched',
+            }, status=status.HTTP_400_BAD_REQUEST)
 
             group_count = int(total_team_size / TEAM_SIZE)
 
             if group_count != len(super_eight_team):
-                return HttpResponse('Rules Voileted: Super Eight Qualifiers')
+                return Response({
+                'status': True,
+                'message': 'Rules Voileted: Super Eight Qualifiers',
+            }, status=status.HTTP_400_BAD_REQUEST)
 
             def create_team(groups, other_team):
                 """
