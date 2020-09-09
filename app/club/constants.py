@@ -44,3 +44,7 @@ TEAM_TYPES = (
     ("SEQ", "Super Eight Qualifiers"),
     ("NQ", "New Qualifiers")
 )
+
+TEAM_SIZE             = 4
+ASCII_START_RANGE     = 65
+ASCII_END_RANGE       = 91

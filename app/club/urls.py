@@ -6,12 +6,11 @@ from django.conf.urls import url
 
 # Local Import
 from .views import (
-    random_group
+    ListGroupAPI
 )
-
 
 app_name = 'club'
 
 urlpatterns = [
-    url(r'random/$', random_group, name='random-group')
+    url(r'list-group-team/$', ListGroupAPI.as_view(), name='list-group-api')
 ]
