@@ -145,7 +145,6 @@ class ListGroupAPI(GenericAPIView):
             other_team       = [list(team) for team in Team.objects.filter(club_type='NQ', club_year=year).values_list('club_name','club_state')]
             total_team_size  = len(super_eight_team) + len(other_team)
             output_group     = []
-            # import pdb; pdb.set_trace()
             if total_team_size == 0:
                 return Response({
                     'status': True,
@@ -227,8 +226,17 @@ class GroupSaveAPI(APIView):
         """
 
         try:
-            import pdb; pdb.set_trace()
-            pass
+
+            group_datas = request.data['data']
+
+            for data in group_datas:
+                key, values = list(data.items())[0]
+                group_obj = SaveGroup.objects.create(group_name=key)
+                for value in values:
+                    group_obj.team_name.add(Team.objects.get(club_name=value))
+
+            return Response({'status': False, 'message': 'Group has been saved successfully'},
+                            status=status.HTTP_200_OK)
         
         except Exception as e:
             return Response({'status': False, 'message': str(e)},

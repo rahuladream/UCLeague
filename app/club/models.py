@@ -35,3 +35,13 @@ class Team(models.Model):
         return self.club_name
 
 
+
+class SaveGroup(models.Model):
+
+    group_name      = models.CharField(_('Group Name'), max_length=20)
+    team_name       = models.ManyToManyField(Team)
+    timestamp       = models.DateTimeField(auto_now_add=True) 
+
+    def __str__(self):
+        return self.group_name
+
