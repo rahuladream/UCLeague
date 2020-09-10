@@ -171,6 +171,12 @@ class ListGroupAPI(GenericAPIView):
                 """
                 used_team = []
                 for i in groups:
+                    """
+                    Basic idea of the function
+                    1. Checking if the state exists in team or not
+                    2. Break the loop if team of 4 has been created
+                    3. Adding the team in used
+                    """
                     for team in other_team:
                         if team not in used_team:
                             if len(i[list(i.keys())[0]]['club_state']) == 4:
@@ -188,6 +194,9 @@ class ListGroupAPI(GenericAPIView):
                 random.shuffle(other_team)
 
                 for i in range(group_count):
+                    """
+                    Adding the super eight team as captian
+                    """
                     groups.append(
                         {"Group " + chr(ASCII_START_RANGE + i): {
                                 'club_name': [super_eight_team[i][0]],
@@ -197,6 +206,10 @@ class ListGroupAPI(GenericAPIView):
                 groups = create_team(groups, other_team)
                 border_case = group_count - 1
                 if len(groups[i]["Group " + chr(ASCII_START_RANGE + i) ]['club_name']) == 4:
+                    """
+                    Border case: returning sometime 3 or 2 because of shuffling
+                    Checking the last array of groups must be of len 4 (if 4 just break and contin)
+                    """
                     break
             
             for i in range(group_count):
