@@ -27,6 +27,10 @@ pip install -r requirements.txt
 ```
 python3 manage.py makemigrations
 python3 manage.py migrate
+python3 manage.py load_data_group
+
+# load_data_group => to load initial data in database
+
 ```
 
 # Run Tests
