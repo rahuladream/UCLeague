@@ -1,0 +1,229 @@
+{
+    "status": true,
+    "data": [
+        {
+            "id": 1,
+            "club_name": "Rhino Hurricanes",
+            "club_state": "UP",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 2,
+            "club_name": "Midnight Stars",
+            "club_state": "JK",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 3,
+            "club_name": "Rocky Assassins",
+            "club_state": "DL",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 4,
+            "club_name": "Striking Sharpshooters",
+            "club_state": "DL",
+            "club_year": 2020,
+            "club_type": "SEQ"
+        },
+        {
+            "id": 5,
+            "club_name": "Skull Fireballs",
+            "club_state": "GA",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 6,
+            "club_name": "Blue Bombers",
+            "club_state": "HR",
+            "club_year": 2020,
+            "club_type": "SEQ"
+        },
+        {
+            "id": 7,
+            "club_name": "Blue Geckos",
+            "club_state": "MP",
+            "club_year": 2020,
+            "club_type": "SEQ"
+        },
+        {
+            "id": 8,
+            "club_name": "Midnight Miners",
+            "club_state": "UP",
+            "club_year": 2020,
+            "club_type": "SEQ"
+        },
+        {
+            "id": 9,
+            "club_name": "Spirit Blockers",
+            "club_state": "AP",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 10,
+            "club_name": "Wind Kamikaze Pilots",
+            "club_state": "KL",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 11,
+            "club_name": "Retro Chuckers",
+            "club_state": "UK",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 12,
+            "club_name": "Venomous Cyborgs",
+            "club_state": "WB",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 13,
+            "club_name": "Quicksilver Ninjas",
+            "club_state": "SK",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 14,
+            "club_name": "Alpha Blockers",
+            "club_state": "RJ",
+            "club_year": 2020,
+            "club_type": "SEQ"
+        },
+        {
+            "id": 15,
+            "club_name": "Retro Heroes",
+            "club_state": "HR",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 16,
+            "club_name": "Lions",
+            "club_state": "PB",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 17,
+            "club_name": "Raging Spanners",
+            "club_state": "HP",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 18,
+            "club_name": "Poison Spiders",
+            "club_state": "OR",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 19,
+            "club_name": "Black Bullets",
+            "club_state": "UP",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 20,
+            "club_name": "Thunder Commandos",
+            "club_state": "UP",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 21,
+            "club_name": "Venomous Sharks",
+            "club_state": "HR",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 22,
+            "club_name": "Killer Stars",
+            "club_state": "NL",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 23,
+            "club_name": "Tornado Geckos",
+            "club_state": "PB",
+            "club_year": 2020,
+            "club_type": "SEQ"
+        },
+        {
+            "id": 24,
+            "club_name": "Knockout Busters",
+            "club_state": "MP",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 25,
+            "club_name": "Muffin Racers",
+            "club_state": "MH",
+            "club_year": 2020,
+            "club_type": "SEQ"
+        },
+        {
+            "id": 26,
+            "club_name": "Real Madrid",
+            "club_state": "DL",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 27,
+            "club_name": "Demolition Piledrivers",
+            "club_state": "RJ",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 28,
+            "club_name": "Flying Xpress",
+            "club_state": "DL",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 29,
+            "club_name": "Silver Wasps",
+            "club_state": "UK",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 30,
+            "club_name": "The Showstoppers",
+            "club_state": "DL",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 31,
+            "club_name": "Wolfsburg",
+            "club_state": "HR",
+            "club_year": 2020,
+            "club_type": "NQ"
+        },
+        {
+            "id": 32,
+            "club_name": "Black & White Gangstaz",
+            "club_state": "AP",
+            "club_year": 2020,
+            "club_type": "SEQ"
+        }
+    ]
+}
